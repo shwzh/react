@@ -1,20 +1,16 @@
 import React, {Component, Fragment} from 'react'
 import 'antd/dist/antd.css'
-import { Table,List, Button, Input } from 'antd';
+import { List, Button, Input } from 'antd';
+import { getTodoList } from "./store/createActions";
 import store from "./store";
 
-const data = [
-    'Racing car sprays burning fuel into crowd.',
-    'Japanese princess to wed commoner.',
-    'Australian walks 100km after outback crash.',
-    'Man charged over missing wedding girl.',
-    'Los Angeles battles huge wildfires.',
-];
+
 
 class TodoList extends Component {
     constructor(props) {
         super(props);
         this.state = store.getState();
+        this.handleInputChange = this.handleInputChange.bind(this)
         // this.setState({
         //     data,
         // })
@@ -27,6 +23,7 @@ class TodoList extends Component {
                     <Input
                         value={this.state.inputValue}
                         style={{ width: 200 }}
+                        onChange={ this.handleInputChange }
                         placeholder="Basic usage" />
                     <Button type="primary" style={{ marginLeft: '10px'}}>提交</Button>
                 </div>
@@ -34,10 +31,19 @@ class TodoList extends Component {
                     header={<div>Header</div>}
                     footer={<div>Footer</div>}
                     bordered
-                    dataSource={data}
+                    dataSource={ this.state.list }
                     renderItem={item => <List.Item>{item}</List.Item>}/>
             </Fragment>
         )
+    }
+    componentDidMount() {
+        const action = getTodoList()
+        store.dispatch(action)
+    }
+
+    handleInputChange(e) {
+        console.log(e)
+
     }
 }
 
