@@ -1,7 +1,7 @@
 import React, {Component, Fragment} from 'react'
 import 'antd/dist/antd.css'
 import { List, Button, Input } from 'antd';
-import { getTodoList } from "./store/createActions";
+import { getTodoList, handleInputChange } from "./store/createActions";
 import store from "./store";
 
 
@@ -12,7 +12,7 @@ class TodoList extends Component {
         this.state = store.getState();
         this.handleInputChange = this.handleInputChange.bind(this)
         this.handleStoreChange = this.handleStoreChange.bind(this)
-        store.subscribe(this.handleStoreChange) // 这个是最原始的redux 数据实时更新到组件内时用的方法
+        store.subscribe(this.handleStoreChange) // 这个是最原始的redux 数据实时更新到组件内时用的方法，但是redux-thunk 或者 redux-saga都要用到
     }
 
     render() {
@@ -27,6 +27,7 @@ class TodoList extends Component {
                     <Button type="primary" style={{ marginLeft: '10px'}}>提交</Button>
                 </div>
                 <List
+                    style={{ width: '300px', margin: '20px'}}
                     header={<div>Header</div>}
                     footer={<div>Footer</div>}
                     bordered
@@ -41,7 +42,8 @@ class TodoList extends Component {
     }
 
     handleInputChange(e) {
-        console.log(e)
+        const action = handleInputChange(e.target.value)
+        store.dispatch(action)
     }
 
     handleStoreChange() {

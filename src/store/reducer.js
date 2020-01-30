@@ -25,7 +25,7 @@ export default (state = defaultState, action) => {
     }
     if(action.type === DELETE_ITEM) {
         const newState = JSON.parse(JSON.stringify(state))
-        newState.splice(action.index, 1) // 这里是自己写的 注意
+        newState.splice(action.index, 1)
         return newState
     }
 
