@@ -11,9 +11,8 @@ class TodoList extends Component {
         super(props);
         this.state = store.getState();
         this.handleInputChange = this.handleInputChange.bind(this)
-        // this.setState({
-        //     data,
-        // })
+        this.handleStoreChange = this.handleStoreChange.bind(this)
+        store.subscribe(this.handleStoreChange) // 这个是最原始的redux 数据实时更新到组件内时用的方法
     }
 
     render() {
@@ -43,7 +42,10 @@ class TodoList extends Component {
 
     handleInputChange(e) {
         console.log(e)
+    }
 
+    handleStoreChange() {
+        this.setState(store.getState())
     }
 }
 

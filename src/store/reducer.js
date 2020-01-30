@@ -29,13 +29,13 @@ export default (state = defaultState, action) => {
         return newState
     }
 
-    if(action.type === INIT_LIST_ACTION) {
-        // axios.get('./list.json').then((res) => {
-        //     const { data } = res
-        //     const action = initListAction(data)
-        //     dispatch(action)
-        // })
-    }
+    // if(action.type === INIT_LIST_ACTION) {
+    //     // axios.get('./list.json').then((res) => {
+    //     //     const { data } = res
+    //     //     const action = initListAction(data)
+    //     //     dispatch(action)
+    //     // })
+    // }
 
     return state
 }
